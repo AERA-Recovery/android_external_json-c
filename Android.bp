@@ -1,0 +1,72 @@
+package {
+    default_applicable_licenses: ["external_json_c_license"],
+}
+
+license {
+    name: "external_json_c_license",
+    visibility: [":__subpackages__"],
+    license_kinds: ["SPDX-license-identifier-MIT"],
+    license_text: ["COPYING"],
+}
+
+cc_library_headers {
+    name: "libjson-c_headers",
+    recovery_available: true,
+    vendor_available: true,
+    export_include_dirs: [
+        ".",
+    ],
+}
+
+cc_library_static {
+    name: "libjson-c",
+
+    recovery_available: true,
+    vendor_available: true,
+
+    srcs: [
+        "arraylist.c",
+        "debug.c",
+        "json_c_version.c",
+        "json_object.c",
+        "json_object_iterator.c",
+        "json_tokener.c",
+        "json_util.c",
+        "json_visit.c",
+        "linkhash.c",
+        "printbuf.c",
+        "random_seed.c",
+        "strerror_override.c",
+        "json_pointer.c",
+        "json_patch.c",
+    ],
+
+    local_include_dirs: [
+        ".",
+    ],
+
+    header_libs: [
+        "libjson-c_headers",
+    ],
+
+    export_header_lib_headers: [
+        "libjson-c_headers",
+    ],
+
+    cflags: [
+        "-DHAVE_CONFIG_H",
+        "-D_GNU_SOURCE",
+        "-Wno-unused-parameter",
+        "-Wno-sign-compare",
+        "-Wno-missing-field-initializers",
+        "-Wno-unused-function",
+        "-Wno-unused-variable",
+        "-Wno-implicit-function-declaration",
+        "-Wno-incompatible-pointer-types",
+        "-Wno-format",
+        "-Wno-error=macro-redefined",
+        "-Wno-macro-redefined",
+    ],
+
+    stl: "none",
+}
